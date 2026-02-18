@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import MediaPlayer from '../components/MediaPlayer';
+import AudioPlayer from '../components/AudioPlayer';
 import './App.css';
 
 function App() {
@@ -27,15 +28,32 @@ function App() {
           </div>
         </section>
         
+        <section className="demo-section">
+          <h2>Audio Player Demo</h2>
+          <div className="player-container">
+            <AudioPlayer
+              src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+              albumCover="https://via.placeholder.com/300x300/1a1a1a/ffffff?text=Album+Cover"
+              theme="dark"
+              autoplay={false}
+              onPlay={() => console.log('Audio Playing')}
+              onPause={() => console.log('Audio Paused')}
+              onEnded={() => console.log('Audio Ended')}
+              onMetadataLoad={(metadata) => console.log('Metadata:', metadata)}
+            />
+          </div>
+        </section>
+        
         <section className="info-section">
           <h2>Features</h2>
           <ul>
             <li>✅ Complete media player with WMP-style UI</li>
+            <li>✅ Audio player with album cover and track title display</li>
             <li>✅ Custom slider components for seek and volume</li>
             <li>✅ Playlist management with shuffle and loop</li>
             <li>✅ Fast-forward and rewind (hold Next/Previous buttons)</li>
             <li>✅ Keyboard navigation support</li>
-            <li>✅ Fullscreen mode</li>
+            <li>✅ Fullscreen mode (video only)</li>
             <li>✅ ARIA accessibility attributes</li>
             <li>✅ Responsive design</li>
           </ul>
@@ -43,6 +61,7 @@ function App() {
         
         <section className="usage-section">
           <h2>Usage</h2>
+          <h3>Video Player</h3>
           <pre><code>{`import { MediaPlayer } from 'wmp-svg-react';
 
 function MyApp() {
@@ -57,6 +76,21 @@ function MyApp() {
     />
   );
 }`}</code></pre>
+          <h3>Audio Player</h3>
+          <pre><code>{`import { AudioPlayer } from 'wmp-svg-react';
+
+function MyApp() {
+  return (
+    <AudioPlayer
+      src="path/to/audio.mp3"
+      albumCover="path/to/cover.jpg"
+      theme="dark"
+      autoplay={false}
+      onPlay={() => console.log('Playing')}
+      onMetadataLoad={(metadata) => console.log('Title:', metadata.title)}
+    />
+  );
+}`}</code></pre>
         </section>
         
         <section className="components-section">
@@ -64,7 +98,11 @@ function MyApp() {
           <div className="component-list">
             <div className="component-card">
               <h3>MediaPlayer</h3>
-              <p>Complete media player with all controls</p>
+              <p>Complete video player with all controls</p>
+            </div>
+            <div className="component-card">
+              <h3>AudioPlayer</h3>
+              <p>Audio player with album cover and metadata</p>
             </div>
             <div className="component-card">
               <h3>Slider</h3>
