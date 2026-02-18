@@ -223,7 +223,7 @@ const AudioPlayer = ({
       // Go to previous item
       playlist.toPrev();
     }
-  }, [playlist, PREVIOUS_BUTTON_TIME_THRESHOLD]);
+  }, [playlist]);
   
   // Next handler
   const handleNext = useCallback(() => {
@@ -244,7 +244,7 @@ const AudioPlayer = ({
       setFastPlaybackType(1);
       setPlaybackRate(FAST_FORWARD_SPEED);
     }, FAST_FORWARD_DELAY);
-  }, [FAST_FORWARD_DELAY, FAST_FORWARD_SPEED]);
+  }, []);
   
   // Fast-forward stop
   const handleFastForwardStop = useCallback(() => {
@@ -284,7 +284,7 @@ const AudioPlayer = ({
         }
       }, FAST_REWIND_INTERVAL);
     }, FAST_FORWARD_DELAY);
-  }, [FAST_FORWARD_DELAY, FAST_REWIND_SPEED, FAST_REWIND_INTERVAL]);
+  }, []);
   
   // Rewind stop
   const handleRewindStop = useCallback(() => {
