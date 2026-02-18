@@ -1,5 +1,6 @@
 // Main components
 export { default as MediaPlayer } from './components/MediaPlayer';
+export { default as AudioPlayer } from './components/AudioPlayer';
 export { default as Slider } from './components/Slider';
 export { default as TimeDisplay } from './components/TimeDisplay';
 
