@@ -104,8 +104,9 @@ export const usePlaylist = () => {
       } else if (loop) {
         // Reset shuffle and start over
         setPlayedIndices(new Set());
-        setShuffleIndices(generateShuffleIndices(items.length, currentIndex));
-        const nextIndex = shuffleIndices[0];
+        const newShuffleIndices = generateShuffleIndices(items.length, currentIndex);
+        setShuffleIndices(newShuffleIndices);
+        const nextIndex = newShuffleIndices[0];
         setCurrentIndex(nextIndex);
         setPlayedIndices(new Set([nextIndex]));
         return true;
