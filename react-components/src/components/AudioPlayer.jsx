@@ -266,26 +266,6 @@ const AudioPlayer = ({
     }
   }, [fastPlaybackType]);
   
-  // Rewind start
-  const handleRewindStart = useCallback(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    
-    fastPlaybackTimeoutRef.current = setTimeout(() => {
-      wasPausedBeforeFastPlayback.current = audio.paused;
-      audio.pause();
-      setFastPlaybackType(-1);
-      
-      fastRewindIntervalRef.current = setInterval(() => {
-        if (audio.currentTime > 0) {
-          audio.currentTime = Math.max(0, audio.currentTime - FAST_REWIND_SPEED);
-        } else {
-          handleRewindStop();
-        }
-      }, FAST_REWIND_INTERVAL);
-    }, FAST_FORWARD_DELAY);
-  }, []);
-  
   // Rewind stop
   const handleRewindStop = useCallback(() => {
     if (fastPlaybackTimeoutRef.current) {
@@ -306,6 +286,26 @@ const AudioPlayer = ({
       setFastPlaybackType(0);
     }
   }, [fastPlaybackType]);
+  
+  // Rewind start
+  const handleRewindStart = useCallback(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    
+    fastPlaybackTimeoutRef.current = setTimeout(() => {
+      wasPausedBeforeFastPlayback.current = audio.paused;
+      audio.pause();
+      setFastPlaybackType(-1);
+      
+      fastRewindIntervalRef.current = setInterval(() => {
+        if (audio.currentTime > 0) {
+          audio.currentTime = Math.max(0, audio.currentTime - FAST_REWIND_SPEED);
+        } else {
+          handleRewindStop();
+        }
+      }, FAST_REWIND_INTERVAL);
+    }, FAST_FORWARD_DELAY);
+  }, [handleRewindStop]);
   
   // Seek handler
   const handleSeek = useCallback((e) => {
