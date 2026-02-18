@@ -106,10 +106,12 @@ export const usePlaylist = () => {
         setPlayedIndices(new Set());
         const newShuffleIndices = generateShuffleIndices(items.length, currentIndex);
         setShuffleIndices(newShuffleIndices);
-        const nextIndex = newShuffleIndices[0];
-        setCurrentIndex(nextIndex);
-        setPlayedIndices(new Set([nextIndex]));
-        return true;
+        if (newShuffleIndices.length > 0) {
+          const nextIndex = newShuffleIndices[0];
+          setCurrentIndex(nextIndex);
+          setPlayedIndices(new Set([nextIndex]));
+          return true;
+        }
       }
       return false;
     } else {
@@ -187,12 +189,12 @@ export const usePlaylist = () => {
     });
   }, [items.length, currentIndex, generateShuffleIndices]);
 
-  // Update shuffle indices when playlist changes
+  // Update shuffle indices when playlist length or shuffle mode changes
   useEffect(() => {
     if (shuffle && items.length > 0) {
       setShuffleIndices(generateShuffleIndices(items.length, currentIndex));
     }
-  }, [items.length, shuffle, currentIndex, generateShuffleIndices]);
+  }, [items.length, shuffle, generateShuffleIndices]); // Removed currentIndex to avoid unnecessary regeneration
 
   return {
     // State
