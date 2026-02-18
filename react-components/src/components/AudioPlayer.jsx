@@ -92,20 +92,24 @@ const AudioPlayer = ({
     const audio = audioRef.current;
     if (!audio) return;
     
+    const extractTitleFromFilename = (url) => {
+      try {
+        const filename = url.split('/').pop().split('?')[0];
+        return decodeURIComponent(filename).replace(/\.[^/.]+$/, '') || 'Unknown Track';
+      } catch (err) {
+        console.error('Error extracting title from filename:', err);
+        return 'Unknown Track';
+      }
+    };
+    
     const handleLoadedMetadata = async () => {
-      // Try to extract title from MediaMetadata API
+      // Extract title from filename
+      // Note: In the future, this could be enhanced to use the Media Metadata API
+      // or extract ID3 tags from the audio file itself
       let title = 'Unknown Track';
       
-      if ('mediaSession' in navigator) {
-        // Check if the audio has metadata
-        try {
-          // For now, we'll use a basic approach - extract from filename or use default
-          const filename = audio.src.split('/').pop().split('?')[0];
-          title = decodeURIComponent(filename).replace(/\.[^/.]+$/, '') || 'Unknown Track';
-        } catch (err) {
-          console.error('Error extracting metadata from audio source:', err);
-          title = 'Unknown Track';
-        }
+      if (audio.src) {
+        title = extractTitleFromFilename(audio.src);
       }
       
       setTrackTitle(title);
