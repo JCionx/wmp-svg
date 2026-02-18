@@ -1,0 +1,154 @@
+.wmp-button {
+  position: relative;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.wmp-button:focus {
+  outline: 2px solid rgba(0, 120, 215, 0.6);
+  outline-offset: 2px;
+}
+
+.wmp-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Play/Pause Button - Large circular button */
+.wmp-button.play-pause {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(200, 200, 200, 0.8));
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  font-size: 0;
+  color: transparent;
+}
+
+.wmp-button.play-pause::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+/* Play icon */
+.wmp-button.play-pause::before {
+  border-width: 15px 0 15px 25px;
+  border-color: transparent transparent transparent rgba(0, 0, 0, 0.8);
+  margin-left: 3px;
+}
+
+.wmp-button.play-pause:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(220, 220, 220, 0.9));
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.wmp-button.play-pause:active {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transform: scale(0.98);
+}
+
+/* Basic buttons */
+.wmp-button.basic-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 12px;
+  color: #fff;
+  margin: 0 4px;
+}
+
+.wmp-button.basic-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.wmp-button.basic-button:active,
+.wmp-button.basic-button.active {
+  background: rgba(0, 120, 215, 0.6);
+}
+
+/* Previous/Next buttons */
+.wmp-button.prev-rw,
+.wmp-button.next-ff {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(200, 200, 200, 0.7));
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  font-size: 0;
+  color: transparent;
+  margin: 0 8px;
+}
+
+.wmp-button.prev-rw::before,
+.wmp-button.next-ff::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+/* Previous icon */
+.wmp-button.prev-rw::before {
+  border-width: 12px 20px 12px 0;
+  border-color: transparent rgba(0, 0, 0, 0.8) transparent transparent;
+  margin-right: 3px;
+}
+
+/* Next icon */
+.wmp-button.next-ff::before {
+  border-width: 12px 0 12px 20px;
+  border-color: transparent transparent transparent rgba(0, 0, 0, 0.8);
+  margin-left: 3px;
+}
+
+.wmp-button.prev-rw:hover,
+.wmp-button.next-ff:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(220, 220, 220, 0.8));
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.wmp-button.prev-rw:active,
+.wmp-button.next-ff:active {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transform: scale(0.98);
+}
+
+/* Toggle buttons (mute, shuffle, loop) */
+.wmp-button.mute,
+.wmp-button.shuffle,
+.wmp-button.loop {
+  position: relative;
+}
+
+.wmp-button.mute.muted,
+.wmp-button.shuffle.active,
+.wmp-button.loop.active {
+  background: rgba(0, 120, 215, 0.7);
+}
+
+/* Fullscreen button */
+.wmp-button.fullscreen {
+  width: 32px;
+  height: 32px;
+}
+
+.wmp-button.fullscreen::before {
+  content: '⛶';
+  font-size: 18px;
+  line-height: 32px;
+}
