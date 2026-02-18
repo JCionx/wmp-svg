@@ -94,20 +94,21 @@ const AudioPlayer = ({
     
     const handleLoadedMetadata = async () => {
       // Try to extract title from MediaMetadata API
-      let title = '';
+      let title = 'Unknown Track';
       
       if ('mediaSession' in navigator) {
         // Check if the audio has metadata
         try {
           // For now, we'll use a basic approach - extract from filename or use default
           const filename = audio.src.split('/').pop().split('?')[0];
-          title = decodeURIComponent(filename).replace(/\.[^/.]+$/, '');
+          title = decodeURIComponent(filename).replace(/\.[^/.]+$/, '') || 'Unknown Track';
         } catch (err) {
-          console.error('Error extracting metadata:', err);
+          console.error('Error extracting metadata from audio source:', err);
+          title = 'Unknown Track';
         }
       }
       
-      setTrackTitle(title || 'Unknown Track');
+      setTrackTitle(title);
       
       if (onMetadataLoad) {
         onMetadataLoad({ title });
@@ -301,11 +302,19 @@ const AudioPlayer = ({
         if (audio.currentTime > 0) {
           audio.currentTime = Math.max(0, audio.currentTime - FAST_REWIND_SPEED);
         } else {
-          handleRewindStop();
+          // Clear the interval directly to avoid circular dependency
+          if (fastRewindIntervalRef.current) {
+            clearInterval(fastRewindIntervalRef.current);
+            fastRewindIntervalRef.current = null;
+          }
+          if (!wasPausedBeforeFastPlayback.current && audio) {
+            audio.play();
+          }
+          setFastPlaybackType(0);
         }
       }, FAST_REWIND_INTERVAL);
     }, FAST_FORWARD_DELAY);
-  }, [handleRewindStop]);
+  }, []);
   
   // Seek handler
   const handleSeek = useCallback((e) => {
